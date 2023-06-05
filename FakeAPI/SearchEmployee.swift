@@ -1,48 +1,51 @@
 //
-//  ContentView.swift
+//  SearchEmployee.swift
 //  FakeAPI
 //
 //  Created by user on 04/06/2023.
 //
 
 import SwiftUI
-import Foundation
 
- class Newvalues : ObservableObject {
-    @Published var postUserId : String = ""
-    @Published var postTitle : String = ""
-    @Published var postBody : String = ""
+struct SearchEmployee: View {
+    @State private var employee = [Employee]()
     
-}
-
-struct ContentView: View {
-    
-@StateObject var values = Newvalues()
-
     var body: some View {
         VStack {
-            Image(systemName: "person.badge.plus")
+            Image(systemName: "folder.fill.badge.person.crop")
                 //.imageScale(ControlSize)
                 .foregroundColor(.accentColor)
                 .font(.system(size: 50))
             
-            Text("Add new employee")
+            Text("Search employee")
                 .font(.largeTitle)
                 .padding(.all)
                 .foregroundColor(.blue)
             
             Text("Employee ID:")
                 .font(.title2)
-            TextField("", text: $values.postUserId)
+           // TextField("", text:$employee.description)
                 .font(.body)
                 .frame(width:200,height:20)
                 .padding(.all)
                 .border(Color(UIColor.separator))
                 .background(Color.gray.opacity(0.20))
+                .cornerRadius(10)
+               
+            
+            Button("Search"){
+                makePOSTRequest()
+            }
+            .frame(width:80,height:15)
+            .padding(.all)
+            .border(Color(UIColor.separator))
+            .background(Color.blue.opacity(0.40))
+            .foregroundColor(.black)
+            .padding(.all)
             
             Text("Employee  Name:")
                 .font(.title2)
-            TextField("", text: $values.postTitle)
+            Text("")
                 .font(.body)
                 .frame(width:200,height:20)
                 .padding(.all)
@@ -51,35 +54,30 @@ struct ContentView: View {
             
             Text("Employee Job:")
                 .font(.title2)
-            TextField("", text: $values.postBody)
+           // Text(CIFilter())
                 .font(.body)
                 .frame(width:200,height:20)
                 .padding(.all)
                 .border(Color(UIColor.separator))
                 .background(Color.gray.opacity(0.20))
             
-            Button("SAVE"){
+            Button("delete this employee"){
                 makePOSTRequest()
             }
-            .frame(width:50,height:15)
+            .frame(width:190,height:15)
             .padding(.all)
             .border(Color(UIColor.separator))
             .background(Color.blue.opacity(0.40))
             .foregroundColor(.black)
             .padding(.all)
-            
+    
         }
-        
         .padding(.all)
-        .environmentObject(values)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SearchEmployee_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(Newvalues())
+        SearchEmployee()
     }
 }
-
-//@EnvironmentObject var values :  Newvalues
